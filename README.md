@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surumala Classment 2017</title>
+    <script src="https://jsdelivr.net"></script>
+    <link rel="stylesheet" href="">
+</head>
+<body class="bg-[#0a192f] text-gray-100 min-h-screen flex flex-col font-sans">
+    <header class="bg-[#172a45] border-b border-amber-500/20 p-4 sticky top-0 z-50 flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-amber-400 to-amber-600 flex items-center justify-center font-black text-[#0a192f]">SC</div>
+        <div>
+            <h1 class="text-amber-400 font-bold text-sm uppercase">SURUMALA CLASSMENT 2017</h1>
+            <p class="text-[10px] text-amber-500/80 tracking-widest">KIKUNDI CHA TAARIFA</p>
+        </div>
+    </header>
+    <main class="flex-1 p-4 pb-20 max-w-md mx-auto w-full">
+        <div id="p-dash" class="space-y-4">
+            <div class="bg-gradient-to-r from-amber-500/10 to-transparent p-4 rounded-xl border border-amber-500/20">
+                <h2 class="text-amber-400 font-bold">Mambo Safi! 🌟</h2>
+                <p class="text-xs text-gray-300">Karibu kwenye mfumo wa kisasa wa taarifa za kikundi chetu.</p>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+                <div onclick="sw('m')" class="bg-[#172a45] p-4 rounded-xl border border-amber-500/10 text-center cursor-pointer">
+                    <p class="text-[10px] text-gray-400">WANACHAMA</p>
+                    <p id="c-m" class="text-2xl font-bold text-amber-400">1</p>
+                </div>
+                <div onclick="sw('v')" class="bg-[#172a45] p-4 rounded-xl border border-amber-500/10 text-center cursor-pointer">
+                    <p class="text-[10px] text-gray-400">VIKAO VILIVYOPO</p>
+                    <p id="c-v" class="text-2xl font-bold text-amber-400">1</p>
+                </div>
+            </div>
+        </div>
+        <div id="p-m" class="space-y-4 hidden">
+            <div class="bg-[#172a45] p-4 rounded-xl border border-amber-500/20">
+                <h3 class="text-sm font-bold text-amber-400 mb-2">Sajili Mwanachama Mpya</h3>
+                <input type="text" id="mN" class="w-full bg-[#0a192f] border border-amber-500/20 rounded p-2 text-xs mb-2 text-white" placeholder="Jina Kamili">
+                <input type="tel" id="mP" class="w-full bg-[#0a192f] border border-amber-500/20 rounded p-2 text-xs mb-3 text-white" placeholder="Namba ya Simu">
+                <button onclick="addM()" class="w-full bg-amber-500 text-[#0a192f] font-bold py-2 rounded text-xs cursor-pointer">Hifadhi Mwanachama</button>
+            </div>
+            <div class="bg-[#172a45] p-4 rounded-xl border border-amber-500/10" id="l-m"></div>
+        </div>
+        <div id="p-v" class="space-y-4 hidden">
+            <div class="bg-[#172a45] p-4 rounded-xl border border-amber-500/20">
+                <h3 class="text-sm font-bold text-amber-400 mb-2">Rekodi Muhtasari wa Kikao</h3>
+                <input type="date" id="vD" class="w-full bg-[#0a192f] border border-amber-500/20 rounded p-2 text-xs mb-2 text-white">
+                <textarea id="vN" rows="2" class="w-full bg-[#0a192f] border border-amber-500/20 rounded p-2 text-xs mb-3 text-white" placeholder="Maazimio makuu ya kikao..."></textarea>
+                <button onclick="addV()" class="w-full bg-amber-500 text-[#0a192f] font-bold py-2 rounded text-xs cursor-pointer">Hifadhi Taarifa za Kikao</button>
+            </div>
+            <div class="bg-[#172a45] p-4 rounded-xl border border-amber-500/10" id="l-v"></div>
+        </div>
+    </main>
+    <nav class="fixed bottom-0 left-0 right-0 bg-[#172a45] border-t border-amber-500/20 py-2">
+        <div class="max-w-md mx-auto flex justify-around">
+            <button onclick="sw('dash')" class="flex flex-col items-center text-amber-400 text-xs cursor-pointer"><i class="fa-solid fa-chart-pie text-base"></i>Dashboard</button>
+            <button onclick="sw('m')" class="flex flex-col items-center text-gray-400 text-xs cursor-pointer"><i class="fa-solid fa-users text-base"></i>Wanachama</button>
+            <button onclick="sw('v')" class="flex flex-col items-center text-gray-400 text-xs cursor-pointer"><i class="fa-solid fa-handshake text-base"></i>Vikao</button>
+        </div>
+    </nav>
+    <script>
+        let mem = JSON.parse(localStorage.getItem('sm_m')) || [{n:'Mwanachama wa Kwanza', p:'0700000000'}];
+        let mtg = JSON.parse(localStorage.getItem('sm_v')) || [{d:'2026-10-01', n:'Kikao cha ufunguzi wa mfumo mpya wa Kikundi.'}];
+        function up() {
+            document.getElementById('c-m').innerText = mem.length;
+            document.getElementById('c-v').innerText = mtg.length;
+            let lm = document.getElementById('l-m'); lm.innerHTML = '<h4 class="text-xs text-amber-400 font-bold mb-2">Orodha ya Wanachama</h4>';
+            mem.forEach(m => { lm.innerHTML += `<div class="py-2 border-b border-amber-500/5 text-xs"><b>${m.n}</b><br><span class="text-gray-400">${m.p}</span></div>`; });
+            let lv = document.getElementById('l-v'); lv.innerHTML = '<h4 class="text-xs text-amber-400 font-bold mb-2">Kumbukumbu za Vikao</h4>';
+            mtg.forEach(v => { lv.innerHTML += `<div class="p-2 bg-[#0a192f]/50 rounded mb-2 text-xs"><b class="text-amber-400">${v.d}</b><p class="text-gray-300 mt-1">${v.n}</p></div>`; });
+        }
+        function sw(t) {
+            ['dash','m','v'].forEach(p => document.getElementById('p-'+p).classList.add('hidden'));
+            document.getElementById('p-'+t).classList.remove('hidden');
+        }
+        function addM() {
+            let n = document.getElementById('mN').value, p = document.getElementById('mP').value;
+            if(!n||!p) return; mem.push({n,p}); localStorage.setItem('sm_m', JSON.stringify(mem));
+            document.getElementById('mN').value=''; document.getElementById('mP').value=''; up(); sw('dash');
+        }
+        function addV() {
+            let d = document.getElementById('vD').value, n = document.getElementById('vN').value;
+            if(!d||!n) return; mtg.push({d,n}); localStorage.setItem('sm_v', JSON.stringify(mtg));
+            document.getElementById('vD').value=''; document.getElementById('vN').value=''; up(); sw('dash');
+        }
+        up();
+    </script>
+</body>
+</html>
